@@ -12,6 +12,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+import userRouter from './routes/userRoutes.js'
+
+app.use('/api/user', userRouter)
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
