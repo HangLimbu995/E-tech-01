@@ -45,14 +45,18 @@ const createUser = asyncHandler(async (req, res) => {
 const userLogin = asyncHandler(async (req, res) => {
     // get email & password and check 
     const { email, password } = req.body
-    if (!email || !password) throw new Error('Please fill all the fields?')
+
+    const trimmedEmail = email.trim()
+    const trimmedPassword = password.trim()
+
+    if (!trimmedEmail || !trimmedPassword) throw new Error('Please fill all the fields?')
 
     // find via email and check
-    const user = await userModel.findOne({ email })
+    const user = await userModel.findOne({ email: trimmedEmail })
     if (!user) throw new Error("Invalid credentials!")
 
     // check if hashed password match
-    const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await bcrypt.compare(trimmedPassword, user.password)
     if (!isMatch) throw new Error("Invalid credentials!")
 
     // generate token

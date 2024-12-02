@@ -4,25 +4,25 @@ const schema = mongoose.Schema
 
 const reviewSchema = new schema({
     name: { type: String, required: true },
-    rating: { type: Number, required: true },
-    comment: { type: String, requried: true },
+    rating: { type: Number, required: true,min:1,max:5 },
+    comment: { type: String, required: true },
     user: {
         type: ObjectId,
-        reqruired: true,
+        required: true,
         ref: 'User',
     }
 }, { timestamps: true })
 
 const productSchema = new schema({
-    name: { type: String, requried: true },
-    image: { type: String, requried: true },
-    brand: { type: String, reqruired: true },
-    quantity: { type: Number, reqruired: true },
+    name: { type: String, required: true },
+    image: { type: String, required: true },
+    brand: { type: String, required: true },
+    quantity: { type: Number, required: true },
     category: { type: ObjectId, ref: "Category", required: true },
-    description: { type: String, requried: true },
+    description: { type: String, required: true },
     reviews: [reviewSchema],
-    rating: { tye: Number, required: true, default: 0 },
-    numReviews: { type: Number, requried: true, default: 0 },
+    rating: { type: Number, required: true, default: 0 },
+    numReviews: { type: Number, required: true, default: 0 },
     price: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
 },{timestamps: true})
